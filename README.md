@@ -1,9 +1,13 @@
 # DARK-VELVET-NOISE REVERB
 Code for the dark-velvet-noise artificial reverberation algorithm [1].
 
-TO BE ADDED SOON:
-- Binaural extension [2]
-- Python version of the Matlab code
+# Current Features
+- Offline Matlab implementation, including the full pipeline from fitting the EDVN model parameters to a target late-reverberation impulse response to generating the model IR.
+- Matlab Demo app, providing example parametrization for modifying the revebreration.
+
+# Upcoming Features
+- Binaural extension [2].
+- Python version of the core Matlab code.
 - Real-time plugin implemented with Juce and C++
 
 # References
