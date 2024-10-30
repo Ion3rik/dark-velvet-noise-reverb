@@ -67,4 +67,5 @@ function [seq,k,sign] = velvetJitter(len, Td, decay, jitter, jitterAlg, varargin
     end
     seq = seq(1:len,:); % enforce length
     sign(:,2) = s;
+    k = min(len,k);
 end

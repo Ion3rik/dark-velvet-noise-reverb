@@ -9,7 +9,7 @@ close all;
 %% PARAMS
 
 fs = 48000;
-tMix = 0.11;
+tMix = round(0.11*fs);
 tMixSamples = round(tMix*fs);
 
 nFilter = 10;                          % number of dictionary filters
@@ -20,7 +20,6 @@ nWin = 2^12;                            % analysis window size
 nHop = nWin/8;                          % analysis window hop size
 
 density = 1500;                         % velvet-noise density (pulses/s)                
-lenMod = 1;                             % broadband RT modifier
 
 % coherence analysis params
 winLen = 512;
@@ -41,12 +40,16 @@ binauralReverb = DvnReverb(fs,2);
 binauralReverb.fitModel(brir,tMix,nWin,nHop,nFilter,[preFilterOrder,pulseFilterOrder]);
 
 %% SYNTHESIZE MODEL
-binauralReverb.initModel(lenMod,density);
+binauralReverb.initModel(1,density);
 binauralReverb.prepare();
 
+%% SAVE BRIRS
+
+
+
 %% COHERENCE ANALYSIS
-lateTarget = brir(tMixSamples:end,:);
-lateModel = binauralReverb.ir(tMixSamples:end,:);
+lateTarget = binauralReverb.lateTarget;
+lateModel = binauralReverb.lateModel;
 [cohTarget,~,f] = coher(lateTarget,win,noverlap,nfft,fs);
 cohModel = coher(lateModel,win,noverlap,nfft,fs);
 

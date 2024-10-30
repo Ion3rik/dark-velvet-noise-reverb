@@ -1,23 +1,27 @@
-% Generate Extended Dark Velvet Noise model of a target IR
+% Generate Extended Dark Velvet Noise model of a target late-reveberation IR
 % Jon Fagerström
 % 3.10.2023
-%% Init
+
 clear; clc;
 close all;
 
-%% Parameters
+%% PARAMETERS
+
 % GENERAL PARAMS
 fs = 48000;                             % sample rate
+
 % ANALYSIS PARAMS
-nWin = 2^12;                          % analysis window size
-nHop = nWin/2;                     % analysis window hop size
+nWin = 2^12;                            % analysis window size
+nHop = nWin/2;                          % analysis window hop size
 fftLength = 4096;                       % fft length for the analysis
-fRange = [20, 20000];                   % frequency range for the analysis                         
-% SYNTHEIS PARAMS
-nFilter = 10;                          % number of dictionary filters
+fRange = [20, 20000];                   % frequency range for the analysis 
+
+% SYNTHESIS PARAMS
+nFilter = 10;                           % number of dictionary filters
 pulseFilterOrder = 2;                   % dictionary filter order   
 preFilterOrder = 10;                    % pre filter order     
-density = 1500;                  % velvet-noise density as a range [startDensity, endDensity], (pulses/s)                
+density = 1500;                         % velvet-noise density (pulses/s) 
+
 % PLOT PARAMS
 dynamicRange = [-60, 0];                % spectrogram dynamic range
 frequencyRange = [50 20000];            % spectrogram frequency range
@@ -41,7 +45,6 @@ monoReverb.initModel(1,density);
 monoReverb.prepare()
 
 %% SAVE IMPULSE RESPONSES
-
 % model
 lateModel = monoReverb.lateModel;
 model = monoReverb.ir; 
@@ -50,8 +53,6 @@ model = monoReverb.ir;
 lateTarget = monoReverb.lateTarget;
 earlyTarget = monoReverb.earlyTarget;
 target = [earlyTarget; lateTarget];
-
-
 
 %% PLOTTING
 
@@ -120,21 +121,5 @@ function tSettings(font, x_label, y_label)
     ax.FontSize = font;
 end
 
-function  T60 = getT60(signal,tSTFT)
-    nBins = size(signal,1);
-    for k = 1:nBins
-        
-        EDC = abs(signal(k,:)).^2;          % get the output energy
-        EDC = flip(EDC);                    % flip
-        EDC = cumsum(EDC);                  % calculate cumulative sum 
-        EDC = flip(EDC);                    % flip back
-        EDC = EDC/max(abs(EDC));            % normalize
-        EDC_dB = 10*log10((EDC));           % EDC in dB
-        temp = find(EDC_dB<= -5, 1);        % in frames
-        temp = find(EDC_dB(temp:end)<= -30, 1);
-        T60(k) = 2*tSTFT(temp);             % in seconds
-    end
-    % Thanks Karolina Prawda!
-    T60 = movmean(T60, 400);
-end
+
 

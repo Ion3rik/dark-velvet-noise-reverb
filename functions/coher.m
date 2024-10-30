@@ -9,7 +9,7 @@ function [coh,cross,f] = coher(brir,win,noverlap,nfft,fs)
 
     f = linspace(0,fs/2,length(cross));
 
-    %coh = abs(octaveSmooth(cross,f,3)).^2 ./ octaveSmooth(SL .* SR,f,3);
-    coh = abs(cross).^2 ./ (SL .* SR); % unsmoothed
+    coh = abs(octaveSmooth(cross,f,3)).^2 ./ octaveSmooth(SL .* SR,f,3);
+    %coh = abs(cross).^2 ./ (SL .* SR); % unsmoothed
 
 end
