@@ -1,4 +1,4 @@
-# dark-velvet-noise-reverb
+# DARK-VELVET-NOISE REVERB
 Matlab implementation of the EDVN reverberator.
 
 Jon Fagerström, Sebastian J. Schlecht, Vesa Välimäki.
