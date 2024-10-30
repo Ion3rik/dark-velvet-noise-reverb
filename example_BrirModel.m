@@ -44,12 +44,17 @@ binauralReverb.initModel(1,density);
 binauralReverb.prepare();
 
 %% SAVE BRIRS
+% model
+lateModel = binauralReverb.lateModel;
+model = binauralReverb.ir; 
 
-
+% target
+lateTarget = binauralReverb.lateTarget;
+earlyTarget = binauralReverb.earlyTarget;
+target = [earlyTarget; lateTarget];
 
 %% COHERENCE ANALYSIS
-lateTarget = binauralReverb.lateTarget;
-lateModel = binauralReverb.lateModel;
+
 [cohTarget,~,f] = coher(lateTarget,win,noverlap,nfft,fs);
 cohModel = coher(lateModel,win,noverlap,nfft,fs);
 
