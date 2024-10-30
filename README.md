@@ -1,5 +1,5 @@
 # DARK-VELVET-NOISE REVERB
-Code for the dark-velvet-noise artificial reverberation algorithm
+Code for the dark-velvet-noise artificial reverberation algorithm [1].
 
 TO BE ADDED SOON:
 - Binaural extension [2]
