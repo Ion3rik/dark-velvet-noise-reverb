@@ -1,5 +1,5 @@
-% Script to save DVN Reverb params to c++ header file to be loaded to the
-% real-time plugin
+% Script to save DVN Reverb params to c++ header file
+% to be loaded to the real-time plugin
 % Jon Fagerström
 % 28.8.2024
 
@@ -33,7 +33,7 @@ win = hann(winLen);
 noverlap = 0.75*winLen;
 nfft = 4096;
 
-roomNum = 'Room1';
+roomName = 'Room1'; % room name for the parameters
 
 %% LOAD BRIR
 filePath = 'data/Promenadi_BRIR_Target.wav';
@@ -72,18 +72,9 @@ fprintf(fid, '#pragma once\n\n');
 fprintf(fid, '#include <vector>\n');
 fprintf(fid, '#include "JuceHeader.h"\n\n');
 
-
-
 % Start writing the struct 
 fprintf(fid, ['namespace Params\n{\n']);
 fprintf(fid, ['struct ' roomNum 'Params\n{\n']);
-
-
-% juce::AudioBuffer<unsigned int> pulseLocation;
-% juce::AudioBuffer<float> pulseGain;
-% std::vector<float> channelGain;
-% std::vector<std::vector<float>> dictionaryFilterCoeff;
-% std::vector<float> postFilterCoeff;
 
 % Write the variables
 M = binauralReverb.M;
@@ -196,46 +187,6 @@ fclose(fid);
 
 
 
-
-%% PLOT
-k = binauralReverb.pulseLoc;
-gs = binauralReverb.pulseGain .* binauralReverb.pulseSign;
-pulseSequence = zeros(max(max(k)),nChannel);
-
-for ch = 1:nChannel
-    pulseSequence(k(:,ch),ch) = gs(:,ch);
-end
-
-l = length(pulseSequence);
-t = 1000*linspace(0,l/fs,l);
-
-figure; 
-plot(t,pulseSequence); xlim([0 371.52]); 
-
-
-late = brir(tMixSamples:end,:);
-late = late(1:l,:);
-
-audiowrite('late.wav',late,fs);
-
-%% POST FILTER TEST
-
-f = linspace(0,fs/2,4096);
-
-figure; 
-
-
-%%
-modi = 0;
-for q = 1:nFilter
-    B = binauralReverb.filterCoeff.pulseB(q);
-    A = binauralReverb.filterCoeff.pulseA(:,q);
-    A = A + modi;
-    B = B;
-    H = freqz(B, A,f, fs); 
-    rms(impz(B,A))
-    semilogx(f,db(abs(H))); hold on;
-end
 
 
 
