@@ -2,7 +2,7 @@
 % Jon Fagerström
 % 3.10.2023
 %% Init
-clear; clc;
+%clear; clc;
 close all;
 set(0,'defaultTextInterpreter','latex')
 rng(420)
@@ -31,14 +31,13 @@ filePath = 'soundExamples/Promenadi Hall/Promenadi_IR_Target.wav';
 rirTarget = resample(rirTarget,fs,temp); % use consistent sample rate
 
 %% ESTIMATE MIXING TIME
-tMix = round(0.11*fs);  % mixing time in samples
+tMix = 1;  % mixing time in samples
 
 %% EXTRACT MONO LATE REVERB
 
 [lateTarget, earlyTarget] = extractLateReverb(rirTarget(:,1),...
                                               tMix,...
-                                              80,...
-                                              false); 
+                                              80); 
 lateTargetOg = lateTarget;                      % save original late target
 timeRange = [0 1] .* length(lateTarget)/fs;     % update plot params    
 lenLate = length(lateTarget);                   % length of late reverberation                               

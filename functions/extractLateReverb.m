@@ -8,14 +8,10 @@
 % Outputs:
 %           <rirLate>: late part of the RIR
 
-function [rirLate, rirEarly] = extractLateReverb(rir, mixingTime, dynamicRange, onset)
+function [rirLate, rirEarly] = extractLateReverb(rir, mixingTime, dynamicRange)
     
-    if (onset)
-        [~,onset] = max(abs(rir));
-        rir = rir(onset:end,:);
-    end
-    %startIdx = find(rir.^2 > 0.001,1);              % find where the signal energy is more -60 dB
-    %rirLate = rir(startIdx:end);                    % remove silent begining
+    startIdx = find(rir.^2 > 0.001,1);              % find where the signal energy is more -60 dB
+    rirLate = rir(startIdx:end);                    % remove silent begining
     rirEarly = rir(1:mixingTime-1);
     cutPoint = numel(rir);
     if (~isempty(dynamicRange))

@@ -6,8 +6,8 @@ function [s,f,t, lp, gDenoise] = analyzeRir(rir, fs, win, hopSize, NFFT, lpOrder
     %% PARAMS & INIT
     L = length(rir);                        % length of the analysed RIR in samples
     nWin = length(win);                     % window length
-    %lpOrder = 10;                           % LP order for smoothing
-    f = linspace(0,fs/2,NFFT/2+1);           % frequency axis
+    %lpOrder = 10;                          % LP order for smoothing
+    f = linspace(0,fs/2,NFFT/2+1);          % frequency axis
     nFrames = floor((L-nWin)/hopSize+1);    % number of frames
     s = zeros(NFFT/2+1,nFrames);               % init spectrogram matrix
     t = zeros(1,nFrames);                   % init time vector (samples)

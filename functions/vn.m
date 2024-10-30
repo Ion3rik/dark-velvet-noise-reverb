@@ -10,7 +10,7 @@
 %       <s> pulse signs with shape (M,1)
 
 
-function [k, s, seq] = vn(Fs, density, Ls)
+function [k, s, g, seq] = vn(Fs, density, Ls)
     Td = Fs/density;                        % average spacing between impulses = grid size
     M = round(Ls/Td);                       % Total number of impulses in the sequence
     r1 = rand(M,1);                         % random number sequence
@@ -19,9 +19,14 @@ function [k, s, seq] = vn(Fs, density, Ls)
     s = 2 * round(r1) - 1;                  % signs
     k = ceil((0:M-1)'.*Td + r2.*(Td-1));    % pulse locations
     k(1) = 1;
+
+    alpha = (-log(10.^(-60/20)))/Ls; % decay constant
+    g = exp(-alpha*k);
+    
     
     seq = zeros(Ls,1);
     seq(k) = s;
     if numel(seq)>Ls
-        seq = seq(1:Ls)'; % make sure the sequence length is not exceeded
+        seq = seq(1:Ls); % make sure the sequence length is not exceeded
+    end
 end

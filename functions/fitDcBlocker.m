@@ -19,7 +19,7 @@ function [b,a] = fitDcBlocker(target, f, fs,order)
     fc = f(idx);
     [b,a] = dcBlocker(fc,fs);
     
-    % DEBUG PLOT
+%     % DEBUG PLOT
 %     PostFilter = db((freqz(b,a,f,fs)').^2);
 %     figure; 
 %     semilogx(f,Target, 'LineWidth',2); hold on;

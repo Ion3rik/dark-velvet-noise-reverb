@@ -13,6 +13,9 @@ function y = convSparse(x,k,g,vL)
 %         pulseMask = (n - k) >= 0;                               % find pulses that contribute to the current output sample
 %         y(n) = sum(x(n - k(pulseMask)+1) .* g(pulseMask));      % compute convolution output sample 
 %     end
+if max(k)>vL
+    warning("k-index over the sequence length")
+end
     %% PULSE BY PULSE (Still slower than Matlab's conv)
     M = length(k);
     for m = 1:M

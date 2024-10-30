@@ -14,7 +14,7 @@
 %           <y>: DVN convolution result    
 function [y, filterOut, whiteOut] = convDvn(x,k,g,filtList,B, A)
     numFilters = size(A,2); % number of filters
-    vL = k(end);            % maximum delay of the pulses
+    vL = max(k);            % maximum delay of the pulses
     numStages = size(B,3);   % number of stages in the pulse filters
     
     % Split processing to each filter branch
