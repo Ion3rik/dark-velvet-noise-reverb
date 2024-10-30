@@ -2,8 +2,8 @@
 Code for the dark-velvet-noise artificial reverberation algorithm [1].
 
 # Current Features
-- Offline Matlab implementation, including the full pipeline from fitting the EDVN model parameters to a target late-reverberation impulse response to generating the model IR. See ```example_IrModel.m```
-- Matlab Demo app, providing example parametrization for modifying the revebreration.
+- Offline Matlab implementation, including the full pipeline from fitting the EDVN model parameters to a target late-reverberation impulse response to generating the model IR. See ```example_IrModel.m```.
+- Matlab Demo app, providing example parametrization for modifying the revebreration. See ```dvn_reverb.mlapp```.
 
 # Upcoming Features
 - Binaural extension [2].
