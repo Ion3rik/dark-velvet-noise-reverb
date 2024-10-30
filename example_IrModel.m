@@ -2,11 +2,9 @@
 % Jon Fagerström
 % 3.10.2023
 %% Init
-%clear; clc;
+clear; clc;
 close all;
-set(0,'defaultTextInterpreter','latex')
-rng(420)
-addpath('functions/');
+
 %% Parameters
 % GENERAL PARAMS
 fs = 48000;                             % sample rate
@@ -31,7 +29,7 @@ filePath = 'soundExamples/Promenadi Hall/Promenadi_IR_Target.wav';
 rirTarget = resample(rirTarget,fs,temp); % use consistent sample rate
 
 %% ESTIMATE MIXING TIME
-tMix = 1;  % mixing time in samples
+tMix = round(0.11*fs);  % mixing time in samples
 
 %% EXTRACT MONO LATE REVERB
 
@@ -180,33 +178,6 @@ ylim([-60 0]);
 
 
 %% FUNCTIONS
-
-function fSettings(font)
-    xlabel('Frequency (Hz)')
-    ylabel('Magnitude (dB)')
-    xlim([20 20000])
-    ax = gca;
-    ax.FontSize = font;
-    set(gca,'XScale', 'log', 'XTick',[ 20 50 100 250 500 1000 2000 4000 8000 16000], 'XTicklabel',{'20','50', '100', '250', '500', '1k', '2k', '4k', '8k', '16k'});
-    %grid on;
-
-end
-
-function plotProbMap(p)
-    imagesc((p));
-    xlabel('Time (frames)')
-    ylabel('Filter')
-    ax = gca;
-    ax.FontSize = 12;
-    cb = colorbar;
-    cb.Label.String = 'Probability';
-    cb.Label.Interpreter = 'latex';
-    set(cb,'FontSize',12);
-    load("colorMapOranges.mat",'oranges');
-    colormap(oranges) % set color map
-    set(gca, 'clim', [0 1]); 
-    set(gca,'YDir','normal')
-end
 
 function tSettings(font, x_label, y_label)
     xlabel(x_label)

@@ -5,11 +5,6 @@
 %% Init
 clear; clc;
 close all;
-set(0,'defaultTextInterpreter','latex')
-rng(420)
-addpath('functions/');
-addpath('classes/')
-addpath('randpdf/')
 
 %% PARAMS
 
