@@ -15,8 +15,11 @@ classdef DvnReverb < handle
         nfft = 4096;                                % FFT length
         freqFft = linspace(0, 48000/2, 4096);   % vector of frequencies at which to run the analysis and fitting
         
-        early;                                  % early part of the target RIR
+        earlyTarget;                                  % early part of the target RIR
+        lateTarget;                                   % late part of the target RIR
 
+        earlyModel;                                  % early part of the model RIR
+        lateModel;                                   % late part of the model RIR
         % FIT PARAMS
         prob;           % DVN filter probabilities per frame
         frameGain;      % Decay gains per frame
@@ -61,7 +64,8 @@ classdef DvnReverb < handle
             obj.nFilter = nFilter;
             obj.targetRIR = rir; % save the target RIR
 
-            [obj.early, rir] = preProcessBRIR(rir,round(obj.fs*tMix),60,true); % extract early and late parts
+            [obj.earlyTarget, obj.lateTarget] = preProcessBRIR(rir,tMix,80,true); % extract early and late parts
+            rir = obj.lateTarget;
             obj.channelEnergy = rms(rir); % save energy 
             rir = rir(:,1); % use the left channel for filter extraction
             obj.nTarget = numel(rir); % length of the target rir
@@ -172,7 +176,10 @@ classdef DvnReverb < handle
 
 
             % construct full RIR
-            obj.ir = [obj.early; obj.ir]; 
+            obj.earlyModel = obj.earlyTarget;
+            obj.lateModel = obj.ir;
+            obj.ir = [obj.earlyTarget; obj.ir]; 
+
        end
 
        %% PROCESS
