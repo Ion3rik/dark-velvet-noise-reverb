@@ -69,3 +69,5 @@ fig1 = figure('Renderer', 'painters', 'Position', [1000 310 w 0.5*h]);
 semilogx(f,cohTarget,'LineWidth',lw); hold on;
 semilogx(f,cohModel,'LineWidth',lw);
 legend('Target', 'Model')
+xlabel('Frequency (Hz)')
+ylabel('Interaural Coherence')
