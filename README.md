@@ -12,7 +12,7 @@ TO BE ADDED SOON:
     Jon Fagerström, Nils Meyer-Kahlen, Sebastian J. Schlecht, Vesa Välimäki.
     Binaural Dark-Velvet-Noise Reverberator.
     In Proceedings of the International Conference on Digital Audio Effects (DAFx),
-    pp. 246–253, September 2024.
+    pp. 246–253, September 2024. https://www.dafx.de/paper-archive/2024/papers/DAFx24_paper_63.pdf
   
 - Python version of the Matlab code
 - Real-time plugin implemented with Juce and C++
